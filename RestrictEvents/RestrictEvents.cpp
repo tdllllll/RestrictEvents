@@ -287,18 +287,14 @@ struct RestrictEventsPolicy {
 
 		// MacBookPro9,1 and MacBookPro10,1 GMUX fails to switch with 'displaypolicyd' active in Big Sur and newer
 		if (strstr(value, "gmux", strlen("gmux"))) {
-			if (getKernelVersion() >= KernelVersion::BigSur) {
-				DBGLOG("rev", "disabling displaypolicyd");
-				procBlacklist[i++] = (char *)"/usr/libexec/displaypolicyd";
-			}
+			DBGLOG("rev", "disabling displaypolicyd");
+			procBlacklist[i++] = (char *)"/usr/libexec/displaypolicyd";
 		}
 
 		// Metal 1 GPUs will hard crash when 'mediaanalysisd' is active on Ventura and newer
 		if (strstr(value, "media", strlen("media"))) {
-			if (getKernelVersion() >= KernelVersion::Ventura) {
-				DBGLOG("rev", "disabling mediaanalysisd");
-				procBlacklist[i++] = (char *)"/System/Library/PrivateFrameworks/MediaAnalysis.framework/Versions/A/mediaanalysisd";
-			}
+			DBGLOG("rev", "disabling mediaanalysisd");
+			procBlacklist[i++] = (char *)"/System/Library/PrivateFrameworks/MediaAnalysis.framework/Versions/A/mediaanalysisd";
 		}
 
 		for (auto &proc : procBlacklist) {
