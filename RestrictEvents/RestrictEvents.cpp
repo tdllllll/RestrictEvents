@@ -297,9 +297,19 @@ struct RestrictEventsPolicy {
 			procBlacklist[i++] = (char *)"/System/Library/PrivateFrameworks/MediaAnalysis.framework/Versions/A/mediaanalysisd";
 		}
 
+		if (strstr(value, "mds", strlen("mds"))) {
+			DBGLOG("rev", "disabling mds");
+			procBlacklist[i++] = (char *)"/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds";
+		}
+
 		if (strstr(value, "photo", strlen("photo"))) {
 			DBGLOG("rev", "disabling photoanalysisd");
 			procBlacklist[i++] = (char *)"/System/Library/PrivateFrameworks/PhotoAnalysis.framework/Versions/A/Support/photoanalysisd";
+		}
+
+		if (strstr(value, "acsry", strlen("acsry"))) {
+			DBGLOG("rev", "disabling accessoryupdaterd");
+			procBlacklist[i++] = (char *)"/System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Support/accessoryupdaterd";
 		}
 
 		for (auto &proc : procBlacklist) {
